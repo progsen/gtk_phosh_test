@@ -1,0 +1,39 @@
+{
+    "app-id": "com.example.title_bar",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "42",
+    "sdk": "org.gnome.Sdk", 
+    "command": "title-bar",
+    "finish-args": [
+        "--socket=wayland"
+    ],
+    "modules": [
+        {
+            "name" : "libhandy",
+            "buildsystem" : "meson",
+	    "builddir": true,
+	    "config-opts": [
+		"-Dglade_catalog=disabled"
+	    ],
+            "sources" : [
+                {
+                  "type" : "git",
+                  "branch": "v0.0.13", 
+                  "branch2": "v0.80.0", 
+                  "url" : "https://source.puri.sm/Librem5/libhandy.git"
+                }
+            ]
+        },
+        {
+            "name": "title_bar",
+            "buildsystem": "meson",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}

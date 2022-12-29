@@ -1,0 +1,50 @@
+//setup 
+
+
+sudo apt -y install flatpak flatpak-builder
+sudo apt -y install qemu-user-static
+
+
+sudo apt-get install flatpak flatpak-builder
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.gnome.Platform//40
+
+
+ sudo apt-get -y install qemu-user-static
+ su
+ echo -1 > /proc/sys/fs/binfmt_misc/qemu-aarch64
+ echo ":qemu-aarch64:M:0:\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-aarch64-static:F" > /proc/sys/fs/binfmt_misc/register
+  cat /proc/sys/fs/binfmt_misc/qemu-aarch64
+
+
+flatpak --user install flathub org.gnome.Platform/aarch64/40 org.gnome.Sdk/aarch64/40
+
+
+//build
+
+flatpak install org.gnome.Sdk//3.32
+flatpak install flathub org.gnome.Platform/aarch64/42 org.gnome.Sdk/aarch64/42
+flatpak --user install flathub org.gnome.Platform/aarch64/42 org.gnome.Sdk/aarch64/42
+//!!!!!!runtime-version IS THE BRANCH check flatpak list
+
+flatpak install gnome-nightly org.gnome.Platform/aarch64 org.gnome.Sdk/aarch64
+flatpak-builder --arch=aarch64 --repo=myrepo _flatpak com.example.title_bar.json
+flatpak build-bundle --arch=aarch64 myrepo app.flatpak com.example.title_bar
+
+flatpak-builder --arch=x86_64 --repo=myrepo _flatpak com.example.title_bar.json
+flatpak build-bundle --arch=x86_64 myrepo app.flatpak com.example.title_bar
+
+
+
+//on device
+
+flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak --user install app.flatpak
+
+flatpak run com.example.title_bar
+
+flatpak uninstall com.example.title_bar
+
+flatpak uninstall --unused
+flatpak uninstall org.gnome.Sdk//3.32

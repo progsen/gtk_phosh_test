@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Title Bar
+Icon=com.example.title_bar
+Exec=title-bar
+Terminal=false
+Type=Application
+Categories=
+StartupNotify=false

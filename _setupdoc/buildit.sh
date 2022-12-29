@@ -1,0 +1,1 @@
+flatpak-builder --arch=aarch64 --repo=_build/flatpakRepo _build/flatpak com.example.title_bar.json --force-clean
